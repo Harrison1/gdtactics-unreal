@@ -1,0 +1,50 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Mac
+.DS_Store
+**/.DS_Store
+MyProject (Mac).xcworkspace
+
+# Rider JetBrains
+.idea
+
+# Solution
+MyProject.sln
+
+# Unreal
+Binaries
+Build
+DerivedDataCache
+Intermediate
+Saved
