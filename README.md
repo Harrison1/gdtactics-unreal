@@ -1,6 +1,8 @@
-# GD Tactics Unreal Code
+# GD Tactics: Unreal Engine
 
-Unreal project for [GD Tactics](https://www.gdtactics.com/) blog posts
+![GD Tactics Unreal Engine Project Repo Banner](/image.png)
+
+Unreal project for [GD Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
 
