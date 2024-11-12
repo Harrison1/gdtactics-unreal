@@ -6,7 +6,9 @@ Unreal project for [GD Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
 
-Dowload the latest version of [Unreal](https://www.unrealengine.com/en-US)
+Current Engine Version: 5.5.0
+
+Download the latest version of [Unreal](https://www.unrealengine.com/en-US)
 
 Clone or download the repo
 ```
