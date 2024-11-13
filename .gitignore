@@ -38,6 +38,7 @@ MyProject (Mac).xcworkspace
 
 # Rider JetBrains
 .idea
+*.uproject.DotSettings.user
 
 # Solution
 MyProject.sln
