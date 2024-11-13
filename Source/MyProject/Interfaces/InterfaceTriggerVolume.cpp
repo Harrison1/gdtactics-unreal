@@ -21,6 +21,8 @@ void AInterfaceTriggerVolume::BeginOverlap(AActor* OverlappedActor, AActor* Othe
 			}
 		}
 
-		Destroy();
+		// Unregister from overlap event
+		// Alt: Destroy();
+		OnActorBeginOverlap.RemoveAll(this);
 	}
 }
