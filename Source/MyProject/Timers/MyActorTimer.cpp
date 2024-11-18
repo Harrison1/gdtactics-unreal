@@ -25,7 +25,7 @@ void AMyActorTimer::StartTimer()
 
 void AMyActorTimer::StopTimer()
 {
-	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
+	GetWorldTimerManager().ClearTimer(TimerHandle);
 }
 
 void AMyActorTimer::TimerFunction()
