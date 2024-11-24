@@ -30,7 +30,7 @@ public:
 	UWidgetComponent* Widget;
 
 	UPROPERTY(EditAnywhere)
-	FName Name = FName("Default");
+	FText Name = FText::FromString(TEXT("Default"));
 
 	UPROPERTY(EditAnywhere)
 	float Health = 100.f;

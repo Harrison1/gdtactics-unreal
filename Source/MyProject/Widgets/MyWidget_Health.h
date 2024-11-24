@@ -22,4 +22,10 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UProgressBar* HealthBar;
+
+	UFUNCTION(BlueprintCallable)
+	void SetHealth(float NewHealth);
+
+	UFUNCTION(BlueprintCallable)
+	void SetName(FString NewName);
 };

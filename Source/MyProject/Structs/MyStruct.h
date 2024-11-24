@@ -11,11 +11,11 @@ struct FMyStruct
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FName Name;
+	FString Name;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Health;
 
 	// Constructor
-	FMyStruct() : Name(FName("Default")), Health(100) {}
+	FMyStruct() : Name(TEXT("Default")), Health(100) {}
 };
