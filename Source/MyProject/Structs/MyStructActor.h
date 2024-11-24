@@ -6,6 +6,7 @@
 #include "MyStructActor.generated.h"
 
 class UBoxComponent;
+class UMyWidget_List;
 
 UCLASS()
 class MYPROJECT_API AMyStructActor : public AActor
@@ -23,7 +24,7 @@ public:
 	UBoxComponent* Box;
 
 	UPROPERTY(EditAnywhere)
-	UUserWidget* MyUserWidget;
+	UMyWidget_List* MyUserWidgetList;
 	
 	UPROPERTY(EditAnywhere)
 	TArray<FMyStruct> Players;

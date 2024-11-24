@@ -1,7 +1,8 @@
 #include "MyStructActor.h"
 #include "MyStructPlayer.h"
-#include "Blueprint/UserWidget.h"
+
 #include "Components/BoxComponent.h"
+#include "MyProject/Widgets/MyWidget_List.h"
 
 // Sets default values
 AMyStructActor::AMyStructActor()
@@ -37,12 +38,15 @@ void AMyStructActor::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		}
 	}
 
-	// MyUserWidget = CreateWidget(this, UUserWidget::StaticClass(), TEXT("MyUserWidget"));
-	//
-	// MyUserWidget->AddToViewport();
+	MyUserWidgetList = CreateWidget<UMyWidget_List>(GetWorld(), UMyWidget_List::StaticClass(), TEXT("MyUserWidgetList"));
+
+	if (MyUserWidgetList != nullptr)
+	{
+		MyUserWidgetList->AddToViewport();	
+	}
 }
 
 void AMyStructActor::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	// MyUserWidget->RemoveFromParent();
+	MyUserWidgetList->RemoveFromParent();
 }
