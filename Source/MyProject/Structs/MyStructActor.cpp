@@ -1,6 +1,5 @@
 #include "MyStructActor.h"
 #include "MyStructPlayer.h"
-
 #include "Components/BoxComponent.h"
 #include "MyProject/Widgets/MyWidget_List.h"
 
