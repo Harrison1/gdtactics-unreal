@@ -5,6 +5,8 @@
 #include "MyStruct.h"
 #include "MyStructActor.generated.h"
 
+class UBoxComponent;
+
 UCLASS()
 class MYPROJECT_API AMyStructActor : public AActor
 {
@@ -13,11 +15,22 @@ class MYPROJECT_API AMyStructActor : public AActor
 public:
 	// Sets default values for this actor's properties
 	AMyStructActor();
+	
+	UPROPERTY(EditAnywhere)
+	USceneComponent* Root;
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* Box;
 
-public:
+	UPROPERTY(EditAnywhere)
+	UUserWidget* MyUserWidget;
+	
+	UPROPERTY(EditAnywhere)
 	TArray<FMyStruct> Players;
+
+	UFUNCTION()
+	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyStruct.h"
 #include "MyStructPlayer.generated.h"
 
 class USkeletalMeshComponent;
@@ -31,5 +30,8 @@ public:
 	UWidgetComponent* Widget;
 
 	UPROPERTY(EditAnywhere)
-	FMyStruct MyStruct;
+	FString Name = TEXT("Name");
+
+	UPROPERTY(EditAnywhere)
+	float Health = 100.f;
 };
