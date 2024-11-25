@@ -29,9 +29,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	UWidgetComponent* Widget;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Name = TEXT("Name");
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Health = 100.f;
 };

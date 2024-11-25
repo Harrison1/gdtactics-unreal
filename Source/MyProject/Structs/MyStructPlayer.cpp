@@ -14,7 +14,6 @@ AMyStructPlayer::AMyStructPlayer()
 	SkeletalMesh->SetupAttachment(RootComponent);
 
 	Widget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
-	Widget->SetWidgetClass(UMyWidget_Health::StaticClass());
 	Widget->SetupAttachment(RootComponent);
 }
 
