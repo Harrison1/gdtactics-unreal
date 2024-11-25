@@ -40,6 +40,14 @@ void AMyStructActor::SetPlayers()
 	}
 }
 
+TArray<AActor*> AMyStructActor::SetPlayersActors()
+{
+	TArray<AActor*> OutOverlappingActors;
+	Box->GetOverlappingActors(OutOverlappingActors, AMyStructPlayer::StaticClass());
+
+	return OutOverlappingActors;
+}
+
 // void AMyStructActor::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 // {
 // 	TArray<AActor*> OutOverlappingActors;

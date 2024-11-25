@@ -26,11 +26,14 @@ public:
 	// UPROPERTY(EditAnywhere)
 	// UMyWidget_List* MyUserWidgetList;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FMyStruct> Players;
 
 	UFUNCTION(BLueprintCallable)
 	void SetPlayers();
+
+	UFUNCTION(BLueprintCallable)
+	TArray<AActor*> SetPlayersActors();
 
 	// UFUNCTION()
 	// void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
