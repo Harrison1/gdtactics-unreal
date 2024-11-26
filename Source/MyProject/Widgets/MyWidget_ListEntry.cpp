@@ -1,4 +1,6 @@
 #include "MyWidget_ListEntry.h"
+
+#include "Components/Image.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "MyProject/Structs/MyStructPlayer.h"
@@ -17,14 +19,22 @@ void UMyWidget_ListEntry::SetName(FString NewName)
 	Name->SetText(NewNameText);
 }
 
+void UMyWidget_ListEntry::SetImage(UTexture2D* NewImage)
+{
+	if (NewImage != nullptr)
+	{
+		Image->SetBrushFromTexture(NewImage);
+	}
+}
+
 void UMyWidget_ListEntry::OnListItemObjectSet_Implementation(UObject* ListItemObject)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnListItemObjectSet_Implementation"));
 	AMyStructPlayer* MyPlayer = Cast<AMyStructPlayer>(ListItemObject);
 
 	if (MyPlayer != nullptr)
 	{
-		SetName(MyPlayer->Name);
-		SetHealth(MyPlayer->Health);
+		SetName(MyPlayer->MyStruct.Name);
+		SetHealth(MyPlayer->MyStruct.Health);
+		SetImage(MyPlayer->MyStruct.Texture);
 	}
 }

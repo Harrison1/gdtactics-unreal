@@ -16,10 +16,6 @@ class MYPROJECT_API UMyWidget_ListEntry : public UUserWidget, public IUserObject
 {
 	GENERATED_BODY()
 
-protected:
-	// virtual void NativeOnListItemObjectSet(UObject* ListItemObject);
-	// virtual void OnListItemObjectSet_Implementation(UObject* ListItemObject) override;
-
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UCanvasPanel* Panel;
@@ -38,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetName(FString NewName);
+
+	UFUNCTION(BlueprintCallable)
+	void SetImage(UTexture2D* NewImage);
 
 	UFUNCTION(BlueprintNativeEvent)
 	void OnListItemObjectSet(UObject* ListItemObject);

@@ -15,6 +15,9 @@ AMyStructPlayer::AMyStructPlayer()
 
 	Widget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
 	Widget->SetupAttachment(RootComponent);
+
+	MyStruct.Name = TEXT("Name");
+	MyStruct.Health = 100.f;
 }
 
 void AMyStructPlayer::BeginPlay()
@@ -30,8 +33,8 @@ void AMyStructPlayer::BeginPlay()
 
 			if (MyHealthWidget != nullptr)
 			{
-				MyHealthWidget->SetName(Name);
-				MyHealthWidget->SetHealth(Health);
+				MyHealthWidget->SetName(MyStruct.Name);
+				MyHealthWidget->SetHealth(MyStruct.Health);
 			}
 		}
 	}

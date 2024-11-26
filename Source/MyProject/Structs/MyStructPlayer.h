@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyStruct.h"
 #include "MyStructPlayer.generated.h"
 
 class USkeletalMeshComponent;
@@ -26,12 +27,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	USkeletalMeshComponent* SkeletalMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FMyStruct MyStruct;
+
 	UPROPERTY(EditAnywhere)
 	UWidgetComponent* Widget;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString Name = TEXT("Name");
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Health = 100.f;
 };
