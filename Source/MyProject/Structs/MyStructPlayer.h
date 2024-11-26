@@ -27,9 +27,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	USkeletalMeshComponent* SkeletalMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FMyStruct MyStruct;
-
 	UPROPERTY(EditAnywhere)
 	UWidgetComponent* Widget;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FMyStruct MyStruct;
 };

@@ -1,5 +1,4 @@
 #include "MyWidget_ListEntry.h"
-
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
