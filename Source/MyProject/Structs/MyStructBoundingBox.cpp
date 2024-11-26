@@ -15,27 +15,7 @@ AMyStructBoundingBox::AMyStructBoundingBox()
 	Box->SetupAttachment(RootComponent);
 }
 
-void AMyStructBoundingBox::SetPlayers()
-{
-	TArray<AActor*> OutOverlappingActors;
-	Box->GetOverlappingActors(OutOverlappingActors, AMyStructPlayer::StaticClass());
-
-	for (AActor* MyPlayer : OutOverlappingActors)
-	{
-		AMyStructPlayer* MyStructPlayer = Cast<AMyStructPlayer>(MyPlayer);
-
-		if (MyStructPlayer != nullptr)
-		{
-			FMyStruct Player;
-			Player.Name = MyStructPlayer->Name;
-			Player.Health = MyStructPlayer->Health;
-
-			Players.Add(Player);
-		}
-	}
-}
-
-TArray<AActor*> AMyStructBoundingBox::SetPlayersActors()
+TArray<AActor*> AMyStructBoundingBox::GetPlayers()
 {
 	TArray<AActor*> OutOverlappingActors;
 	Box->GetOverlappingActors(OutOverlappingActors, AMyStructPlayer::StaticClass());

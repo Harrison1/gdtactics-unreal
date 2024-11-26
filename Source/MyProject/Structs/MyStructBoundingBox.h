@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyStruct.h"
 #include "MyStructBoundingBox.generated.h"
 
 class UBoxComponent;
@@ -22,13 +21,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* Box;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FMyStruct> Players;
 
 	UFUNCTION(BLueprintCallable)
-	void SetPlayers();
-
-	UFUNCTION(BLueprintCallable)
-	TArray<AActor*> SetPlayersActors();
+	TArray<AActor*> GetPlayers();
 };

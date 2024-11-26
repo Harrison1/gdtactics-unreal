@@ -16,6 +16,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Health;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* Texture;
+
 	// Constructor
 	FMyStruct() : Name(TEXT("Default")), Health(100) {}
 };
