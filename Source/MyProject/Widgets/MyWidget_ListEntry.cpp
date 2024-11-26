@@ -3,13 +3,6 @@
 #include "Components/TextBlock.h"
 #include "MyProject/Structs/MyStructPlayer.h"
 
-// void UMyWidget_ListEntry::NativeOnListItemObjectSet(UObject* ListItemObject)
-// {
-// 	Super::NativeOnListItemObjectSet(ListItemObject);
-//
-// 	// Additional logic here if needed
-// }
-
 void UMyWidget_ListEntry::SetHealth(float NewHealth)
 {
 	float NewHealthPct = NewHealth / 100.f;
@@ -31,7 +24,6 @@ void UMyWidget_ListEntry::OnListItemObjectSet_Implementation(UObject* ListItemOb
 
 	if (MyPlayer != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("2222222"));
 		SetName(MyPlayer->Name);
 		SetHealth(MyPlayer->Health);
 	}
