@@ -58,7 +58,6 @@ void USaveGameSubsystem::SaveGame()
 	}
 }
 
-
 void USaveGameSubsystem::LoadGame()
 {
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))

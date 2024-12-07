@@ -1,5 +1,3 @@
-// Copyright HM Interactive, LLC. All Rights Reserved..
-
 #pragma once
 
 #include "CoreMinimal.h"

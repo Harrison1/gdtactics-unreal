@@ -29,8 +29,18 @@ void ASaveGameTriggerSphere::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 {
 	if (OtherActor != nullptr && OtherActor != this)
 	{
-		if (bLoadGame) LoadGame();
-		if (bSaveGame) SaveGame();
+		if (bLoadGame)
+		{
+			LoadGame();
+			return;
+		}
+		
+		if (bSaveGame)
+		{
+			SaveGame();
+			return;
+		}
+
 		if (bResetData) ResetData();
 	}
 }
