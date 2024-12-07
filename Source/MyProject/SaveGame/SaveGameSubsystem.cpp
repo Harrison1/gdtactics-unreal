@@ -1,5 +1,4 @@
 #include "SaveGameSubsystem.h"
-#include "EngineUtils.h"
 #include "MySaveGame.h"
 #include "SaveGameInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -9,7 +8,7 @@ void USaveGameSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	// For testing this example, on init set the CurrentSaveGame variable
+	// For testing purposes I'm setting the SaveSlotName and CurrentSaveGame values here.
 	SaveSlotName = TEXT("SaveGame01");
 	
 	if (UGameplayStatics::DoesSaveGameExist(SaveSlotName, 0))
