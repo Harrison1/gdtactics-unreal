@@ -6,9 +6,6 @@
 
 class UMySaveGame;
 
-/**
- * 
- */
 UCLASS()
 class MYPROJECT_API USaveGameSubsystem : public UGameInstanceSubsystem
 {
@@ -29,7 +26,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ResetData();
-
-	/* Initialize Subsystem, good moment to load in SaveGameSettings variables */
+	
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 };

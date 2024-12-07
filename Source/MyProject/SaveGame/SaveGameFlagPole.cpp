@@ -3,7 +3,6 @@
 #include "Kismet/GameplayStatics.h"
 
 
-// Sets default values
 ASaveGameFlagPole::ASaveGameFlagPole()
 {
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
