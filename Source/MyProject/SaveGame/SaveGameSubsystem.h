@@ -19,7 +19,7 @@ public:
 	FString SaveSlotName;
 
 	UPROPERTY()
-	TObjectPtr<UMySaveGame> CurrentSaveGame
+	TObjectPtr<UMySaveGame> CurrentSaveGame;
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveGame();
