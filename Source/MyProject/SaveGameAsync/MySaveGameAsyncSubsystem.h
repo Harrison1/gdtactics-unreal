@@ -14,10 +14,10 @@ class MYPROJECT_API UMySaveGameAsyncSubsystem : public UGameInstanceSubsystem
 
 public:
 	UPROPERTY()
-	FString SlotName;
+	FString MySlotName;
 
 	UPROPERTY()
-	TObjectPtr<UMySaveGameAsync> SaveGame;
+	TObjectPtr<UMySaveGameAsync> MySaveGame;
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveGameAsync();
