@@ -9,7 +9,7 @@
 void UMySaveGameAsyncSubsystem::SaveGameAsync()
 {
 	// start with an empty file
-	MySaveGame->SavedActors.Empty();
+	MySaveGameObject->SavedActors.Empty();
 	
 	TArray<AActor*> SaveGameActors;
 	UGameplayStatics::GetAllActorsWithInterface(GetWorld(), UMySaveGameAsyncInterface::StaticClass(), SaveGameActors);
@@ -32,13 +32,13 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 		Actor->Serialize(Ar);
 
 		// Append to the SaveActors TArray
-		MySaveGame->SavedActors.Add(ActorData);
+		MySaveGameObject->SavedActors.Add(ActorData);
 	}
 
 	FAsyncSaveGameToSlotDelegate SaveGameCallbackDelegate;
 	SaveGameCallbackDelegate.BindUObject(this, &UMySaveGameAsyncSubsystem::SaveGameCompleteCallback);
 
-	UGameplayStatics::AsyncSaveGameToSlot(MySaveGame, MySlotName, 0, SaveGameCallbackDelegate);
+	UGameplayStatics::AsyncSaveGameToSlot(MySaveGameObject, MySlotName, 0, SaveGameCallbackDelegate);
 }
 
 void UMySaveGameAsyncSubsystem::SaveGameCompleteCallback(const FString& SlotName, int32 UserIndex, bool bSuccess)

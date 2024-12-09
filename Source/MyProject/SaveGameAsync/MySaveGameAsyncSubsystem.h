@@ -25,7 +25,7 @@ public:
 	FString MySlotName;
 
 	UPROPERTY()
-	TObjectPtr<UMySaveGameAsync> MySaveGame;
+	TObjectPtr<UMySaveGameAsync> MySaveGameObject;
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveGameAsync();
