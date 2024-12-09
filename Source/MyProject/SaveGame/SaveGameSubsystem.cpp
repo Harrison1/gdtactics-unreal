@@ -38,12 +38,10 @@ void USaveGameSubsystem::SaveGame()
 		// this simple example won't be using actor transform data.
 		// ActorData.ActorTransform = Actor->GetActorTransform();
 		
-		// Pass the array to fill with data from Actor
 		FMemoryWriter MyMemoryWriter(ActorData.ByteData);
 	
 		FObjectAndNameAsStringProxyArchive Ar(MyMemoryWriter, true);
 
-		// set this archive saving/loading state to true and then serialize to binary data
 		Ar.ArIsSaveGame = true;
 		Actor->Serialize(Ar);
 	
