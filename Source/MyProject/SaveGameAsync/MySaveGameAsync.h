@@ -1,3 +1,5 @@
+/* Work in Progress */
+
 #pragma once
 
 #include "CoreMinimal.h"
@@ -6,7 +8,7 @@
 
 
 USTRUCT()
-struct FActorSaveData
+struct FMyActorSaveAsyncData
 {
 	GENERATED_BODY()
 
@@ -27,5 +29,5 @@ class MYPROJECT_API UMySaveGameAsync : public USaveGame
 
 public:
 	UPROPERTY()
-	TArray<FActorSaveData> SavedActors;
+	TArray<FMyActorSaveAsyncData> SavedActors;
 };

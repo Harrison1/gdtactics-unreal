@@ -1,3 +1,5 @@
+/* Work in Progress */
+
 #include "MySaveGameAsyncSubsystem.h"
 #include "MySaveGameAsync.h"
 #include "MySaveGameAsyncInterface.h"
@@ -14,7 +16,7 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 
 	for (AActor* Actor : SaveGameActors)
 	{
-		FActorSaveData ActorData;
+		FMyActorSaveAsyncData ActorData;
 		ActorData.Name = Actor->GetFName();
 		ActorData.Transform = Actor->GetActorTransform();
 		
@@ -33,5 +35,14 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 		MySaveGame->SavedActors.Add(ActorData);
 	}
 
-	UGameplayStatics::AsyncSaveGameToSlot(MySaveGame, MySlotName, 0);
+	FAsyncSaveGameToSlotDelegate SaveGameCallbackDelegate;
+	SaveGameCallbackDelegate.BindUObject(this, &UMySaveGameAsyncSubsystem::SaveGameCompleteCallback);
+
+	UGameplayStatics::AsyncSaveGameToSlot(MySaveGame, MySlotName, 0, SaveGameCallbackDelegate);
+}
+
+void UMySaveGameAsyncSubsystem::SaveGameCompleteCallback(const FString& SlotName, int32 UserIndex, bool bSuccess)
+{
+	// broadcast event to all listeners
+	OnSaveComplete.Broadcast(SlotName, UserIndex, bSuccess);
 }
