@@ -26,8 +26,8 @@ public:
 	UPROPERTY()
 	bool bSaving = false;
 
-	UPROPERTY()
-	TObjectPtr<UMySaveGameAsync> MySaveGameObject;
+	// UPROPERTY()
+	// TObjectPtr<UMySaveGameAsync> MySaveGameObject;
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveGameAsync();
