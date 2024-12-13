@@ -34,15 +34,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void LoadGameAsync(FString LoadSlotName);
-
-	// UFUNCTION(BlueprintCallable)
-	// void LoadGameAsync();
-	//
-	// UFUNCTION(BlueprintCallable)
-	// void ResetGameAsync();
-	//
-	// virtual void Initialize(FSubsystemCollectionBase& Collection) override;
-
 private:
 	// Callback to call the broadcast event when saving completes
 	void SaveGameAsyncCallback(const FString& SlotName, int32 UserIndex, bool bSuccess);

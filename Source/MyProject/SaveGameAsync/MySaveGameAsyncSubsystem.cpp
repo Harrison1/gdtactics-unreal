@@ -1,6 +1,4 @@
 #include "MySaveGameAsyncSubsystem.h"
-
-#include "EngineUtils.h"
 #include "Async/Async.h"
 #include "MySaveGameAsync.h"
 #include "MySaveGameAsyncInterface.h"
@@ -58,11 +56,6 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 			FMyActorSaveAsyncData ActorData;
 			ActorData.Name = Actor->GetFName();
 			ActorData.Transform = Actor->GetActorTransform();
-
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, *FString::Printf(TEXT("Actor Transform: %s"), *Actor->GetActorTransform().ToString()));
-			}
 			
 			// Use FMemoryWriter wrap the byte array data so it can be FArchive compatible
 			FMemoryWriter MyMemoryWriter(ActorData.ByteData);
@@ -116,11 +109,6 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 				{
 					if (ActorData.Name == Actor->GetFName())
 					{
-						if (GEngine)
-						{
-							GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, *FString::Printf(TEXT("Actor Name: %s"), *Actor->GetFName().ToString()));
-							GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, *FString::Printf(TEXT("Actor Transform: %s"), *ActorData.Transform.ToString()));
-						}
 						Actor->SetActorTransform(ActorData.Transform);
 
 						// Use FMemoryReader to archive data
