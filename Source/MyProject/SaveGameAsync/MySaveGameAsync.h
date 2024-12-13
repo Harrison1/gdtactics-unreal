@@ -1,5 +1,3 @@
-/* Work in Progress */
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -19,6 +17,9 @@ struct FMyActorSaveAsyncData
 	FTransform Transform;
 
 	UPROPERTY()
+	FDateTime DateTime;
+
+	UPROPERTY()
 	TArray<uint8> ByteData;
 };
 
@@ -29,5 +30,5 @@ class MYPROJECT_API UMySaveGameAsync : public USaveGame
 
 public:
 	UPROPERTY()
-	TArray<FMyActorSaveAsyncData> SavedActors;
+	TArray<FMyActorSaveAsyncData> MySavedActors;
 };
