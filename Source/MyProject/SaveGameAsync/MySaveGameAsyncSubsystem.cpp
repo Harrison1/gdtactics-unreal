@@ -97,6 +97,11 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 	if (bSaving || bLoading) return;
 
 	bLoading = true;
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, *FString::Printf(TEXT("Loading %s ..."), *SlotName));
+	}
 	
 	// MySaveGameObject = Cast<UMySaveGameAsync>(SaveGame);
 	TObjectPtr<UMySaveGameAsync> LocalSaveObject = Cast<UMySaveGameAsync>(SaveGame);
@@ -173,7 +178,7 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 
 					if (GEngine)
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("All Actors Have Been loaded"));
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Loading game Successful!!"));
 					}
 				}
 			});
