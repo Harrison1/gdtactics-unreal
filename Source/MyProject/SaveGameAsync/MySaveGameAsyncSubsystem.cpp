@@ -18,17 +18,15 @@ void UMySaveGameAsyncSubsystem::LoadGameAsync(FString LoadSlotName)
 		
 		UGameplayStatics::AsyncLoadGameFromSlot(LoadSlotName, 0, LoadGameCallbackDelegate);
 	}
-	// else
-	// {
-	// 	MySaveGameObject = CastChecked<UMySaveGameAsync>(UGameplayStatics::CreateSaveGameObject(UMySaveGameAsync::StaticClass()));
-	// }
 }
 
 void UMySaveGameAsyncSubsystem::SaveGameAsync()
 {
+	if (bSaving || bLoading) return;
+	
 	TObjectPtr<UMySaveGameAsync> LocalSaveObject = CastChecked<UMySaveGameAsync>(UGameplayStatics::CreateSaveGameObject(UMySaveGameAsync::StaticClass()));
 	
-	if (!IsValid(LocalSaveObject) || bSaving) return;
+	if (!IsValid(LocalSaveObject)) return;
 	
 	bSaving = true;
 
@@ -38,7 +36,6 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 	// create a local instance of variables to be captured and used in the lambda
 	TWeakObjectPtr<UMySaveGameAsyncSubsystem> WeakThis = this; // Alternatively: auto WeakThis = TWeakObjectPtr(this);
 	UWorld* World = GetWorld();
-	// TObjectPtr<UMySaveGameAsync> LocalSaveObject = MySaveGameObject;
 	FString SaveSlotName = MySlotName;
 
 	// if you want to get all the actors inside the Async task or use TActorRange you'll have
@@ -77,7 +74,7 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 			* Note: this will block the game's main thread when using EAsyncExecution::TaskGraphMainThread
 			* Uncomment when not needed
 			*/
-			FPlatformProcess::Sleep(0.1f);
+			FPlatformProcess::Sleep(0.05f);
 		}
 		
 		// Once done, return to the Game Thread to save the game
@@ -97,18 +94,21 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 
 void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, int32 UserIndex, USaveGame* SaveGame)
 {
+	if (bSaving || bLoading) return;
+
+	bLoading = true;
 	
 	// MySaveGameObject = Cast<UMySaveGameAsync>(SaveGame);
 	TObjectPtr<UMySaveGameAsync> LocalSaveObject = Cast<UMySaveGameAsync>(SaveGame);
 	
 	if (!IsValid(LocalSaveObject)) return;
-	
+
+	static FTimerHandle TimerHandle;
 	TArray<AActor*> SaveGameActors;
 	UGameplayStatics::GetAllActorsWithInterface(GetWorld(), UMySaveGameAsyncInterface::StaticClass(), SaveGameActors);
-	// TObjectPtr<UMySaveGameAsync> LocalSaveObject = MySaveGameObject;
 
 	// Begin the Async operation in an outside thread.
-	Async(EAsyncExecution::Thread, [LocalSaveObject, SaveGameActors]()
+	Async(EAsyncExecution::Thread, [this, LocalSaveObject, SaveGameActors]()
 	{
 		TArray<TPair<AActor*, FMyActorSaveAsyncData>> ProcessedActors;
 
@@ -127,19 +127,17 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 		}
 
 		// Being the Async operation in the GameThread. Since we're updating game world actors we need the game thread
-		AsyncTask(ENamedThreads::GameThread, [ProcessedActors]()
+		AsyncTask(ENamedThreads::GameThread, [this, ProcessedActors]()
 		{
 			constexpr int32 BatchSize = 5;
-			static int32 CurrentIndex = 0;
-
-			static FTimerHandle TimerHandle;
-
+			int32 CurrentIndex = 0;
+			
 			/** Delegate function that updates back to the game thread incrementally
 			* When doing this in batches every frame will allow us not permanently block the main thread
 			* We could put a loading screen with this technique and limit interruptions.
 			*/  
 			FTimerDelegate TimerDel;
-			TimerDel.BindLambda([ProcessedActors]() mutable
+			TimerDel.BindLambda([this, ProcessedActors, CurrentIndex]() mutable
 			{
 				for (int32 i = 0; i < BatchSize && CurrentIndex < ProcessedActors.Num(); ++i, ++CurrentIndex)
 				{
@@ -157,8 +155,8 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 
 						Actor->Serialize(Ar);
 
-						// Execute an interface call if you want an actor to perform logic when laoded
-						// currently I don't have any actore listening for this event
+						// Execute an interface call if you want an actor to perform logic when loaded
+						// currently I don't have any actor listening for this event
 						IMySaveGameAsyncInterface::Execute_OnLoadGameAsync(Actor);
 					}
 				}
@@ -166,10 +164,11 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 				// Stop the timer when all actors are processed
 				if (CurrentIndex >= ProcessedActors.Num())
 				{
-					// UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key);
-					if (UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key))
+					UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key);
+					if (IsValid(World))
 					{
 						World->GetTimerManager().ClearTimer(TimerHandle);
+						bLoading = false;
 					}
 
 					if (GEngine)
@@ -179,9 +178,9 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 				}
 			});
 
-			// Start a timer that runs every 0.1s that calls the binded delegate function to process all the saved actors in batches
-			// UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key);
-			if (UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key))
+			// Start a timer that runs every 0.1s that calls the delegate function to process all the saved actors in batches
+			UWorld* World = GEngine->GetWorldFromContextObjectChecked(ProcessedActors[0].Key);
+			if (IsValid(World))
 			{
 				World->GetTimerManager().SetTimer(TimerHandle, TimerDel, 0.1f, true);
 			}
@@ -192,6 +191,25 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 void UMySaveGameAsyncSubsystem::SaveGameAsyncCallback(const FString& SlotName, int32 UserIndex, bool bSuccess)
 {
 	bSaving = false;
+	
 	// broadcast event to all listeners
 	OnSavingGameAsync.Broadcast(SlotName, UserIndex, bSuccess, bSaving);
+}
+
+void UMySaveGameAsyncSubsystem::DeleteAllAsyncSaveFiles(FString File1, FString File2, FString File3)
+{
+	if (UGameplayStatics::DoesSaveGameExist(File1, 0))
+	{
+		UGameplayStatics::DeleteGameInSlot(File1, 0);
+	}
+
+	if (UGameplayStatics::DoesSaveGameExist(File2, 0))
+	{
+		UGameplayStatics::DeleteGameInSlot(File2, 0);
+	}
+
+	if (UGameplayStatics::DoesSaveGameExist(File3, 0))
+	{
+		UGameplayStatics::DeleteGameInSlot(File3, 0);
+	}
 }

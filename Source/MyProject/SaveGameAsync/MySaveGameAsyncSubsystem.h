@@ -7,8 +7,8 @@
 class UMySaveGameAsync;
 class USaveGame;
 
-// declare a delegate to use and broadcast after the async save function has completed
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FSaveCompleteDelegate, const FString&, SlotName, int32, UserIndex, bool, bSuccess, bool, bSaving);
+
 
 UCLASS()
 class MYPROJECT_API UMySaveGameAsyncSubsystem : public UGameInstanceSubsystem
@@ -22,12 +22,15 @@ public:
 	
 	UPROPERTY()
 	FString MySlotName;
+	
+	UPROPERTY()
+	bool bLoading = false;
 
 	UPROPERTY()
 	bool bSaving = false;
 
-	// UPROPERTY()
-	// TObjectPtr<UMySaveGameAsync> MySaveGameObject;
+	UFUNCTION(BlueprintCallable)
+	void DeleteAllAsyncSaveFiles(FString File1, FString File2, FString File3);
 	
 	UFUNCTION(BlueprintCallable)
 	void SaveGameAsync();
