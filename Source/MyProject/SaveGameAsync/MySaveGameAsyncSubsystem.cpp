@@ -45,9 +45,6 @@ void UMySaveGameAsyncSubsystem::SaveGameAsync()
 	
 	Async(EAsyncExecution::Thread, [WeakThis, LocalSaveObject, SaveSlotName, SaveGameActors]()
 	{
-		// clear out content
-		// LocalSaveObject->MySavedActors.Empty();
-		
 		// Alternative: for (AActor* Actor : TActorRange<AActor>(World)) then check if Actor->Implements<UMySaveGameAsyncInterface>(),
 		// but since we're inside an Async operation you'll need to use EAsyncExecution::TaskGraphMainThread for TActorRange to work
 		for (AActor* Actor : SaveGameActors)
@@ -103,7 +100,6 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, *FString::Printf(TEXT("Loading %s ..."), *SlotName));
 	}
 	
-	// MySaveGameObject = Cast<UMySaveGameAsync>(SaveGame);
 	TObjectPtr<UMySaveGameAsync> LocalSaveObject = Cast<UMySaveGameAsync>(SaveGame);
 	
 	if (!IsValid(LocalSaveObject)) return;
@@ -112,7 +108,13 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 	TArray<AActor*> SaveGameActors;
 	UGameplayStatics::GetAllActorsWithInterface(GetWorld(), UMySaveGameAsyncInterface::StaticClass(), SaveGameActors);
 
-	// Begin the Async operation in an outside thread.
+	/** Begin the Async operation in an outside thread.
+	* Note: "this" is the first captured argument, I'm passing it so I can set bLoading to false when I clear the timer.
+	* "this" makes class variables available in lambdas thus making some of my local variables redundant, but it was
+	*  last argument I added and it's good for practice/visiblity
+	*  One alternative approach would be to use a weak pointer similar to save function and pass WeakThis down. 
+	*  Furthermore, I think it's good practice to not prevent side effects and keep functional lambdas encapsulated.
+	*/
 	Async(EAsyncExecution::Thread, [this, LocalSaveObject, SaveGameActors]()
 	{
 		TArray<TPair<AActor*, FMyActorSaveAsyncData>> ProcessedActors;
@@ -174,6 +176,14 @@ void UMySaveGameAsyncSubsystem::LoadGameAsyncCallback(const FString& SlotName, i
 					{
 						World->GetTimerManager().ClearTimer(TimerHandle);
 						bLoading = false;
+
+						/** Alternativley: if we used a weak reference, we can do to set bLoading in the below snippet
+						 * if (WeakThis.IsValid())
+						 *	{
+						 *		UMySaveGameAsyncSubsystem* ValidThis = WeakThis.Get();
+						 *		ValidThis->bLoading = false;
+						 *	}
+						*/
 					}
 
 					if (GEngine)
@@ -203,18 +213,7 @@ void UMySaveGameAsyncSubsystem::SaveGameAsyncCallback(const FString& SlotName, i
 
 void UMySaveGameAsyncSubsystem::DeleteAllAsyncSaveFiles(FString File1, FString File2, FString File3)
 {
-	if (UGameplayStatics::DoesSaveGameExist(File1, 0))
-	{
-		UGameplayStatics::DeleteGameInSlot(File1, 0);
-	}
-
-	if (UGameplayStatics::DoesSaveGameExist(File2, 0))
-	{
-		UGameplayStatics::DeleteGameInSlot(File2, 0);
-	}
-
-	if (UGameplayStatics::DoesSaveGameExist(File3, 0))
-	{
-		UGameplayStatics::DeleteGameInSlot(File3, 0);
-	}
+	UGameplayStatics::DeleteGameInSlot(File1, 0);
+	UGameplayStatics::DeleteGameInSlot(File2, 0);
+	UGameplayStatics::DeleteGameInSlot(File3, 0);
 }
