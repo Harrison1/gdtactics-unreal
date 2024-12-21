@@ -1,6 +1,6 @@
-# GD Tactics: Unreal Engine
+# [GD Tactics](https://www.gdtactics.com/): Unreal Engine
 
-![GD Tactics Unreal Engine Project Repo Banner](/image.png)
+[![GD Tactics Unreal Engine Project Repo Banner](/image.png)](https://www.gdtactics.com/)
 
 Unreal project for [GD Tactics](https://www.gdtactics.com/).
 
@@ -32,6 +32,6 @@ Open `MyProject.uproject`
 - [Save Game](https://github.com/Harrison1/gdtactics-unreal/tree/main/Source/MyProject/SaveGame)
 - [Save Game Async](https://github.com/Harrison1/gdtactics-unreal/tree/main/Source/MyProject/SaveGameAsync)
 - [Spawn Actors](https://github.com/Harrison1/gdtactics-unreal/tree/main/Source/MyProject/SpawnActor)
-- [Structs](tree/main/Source/MyProject/Structs)
-- [Timelines](/tree/main/Source/MyProject/Timelines)
-- [Timers](main/Source/MyProject/Timers)
+- [Structs](Source/MyProject/Structs)
+- [Timelines](/Source/MyProject/Timelines)
+- [Timers](/Source/MyProject/Timers)
