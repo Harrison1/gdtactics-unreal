@@ -9,7 +9,7 @@ AMySpawnActorParticle::AMySpawnActorParticle()
 	MyRoot->bVisualizeComponent = true;
 	RootComponent = MyRoot;
 
-	MyNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("My System"));
+	MyNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("MyNiagaraComponent"));
 	MyNiagaraComponent->SetupAttachment(RootComponent);
 
 	ParticleColor = FVector(1.f, 0.f, 0.f);
