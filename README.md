@@ -1,4 +1,4 @@
-# [GD Tactics](https://www.gdtactics.com/): Unreal Engine
+# [GD Tactics](https://www.gdtactics.com/) Unreal Engine
 
 [![GD Tactics Unreal Engine Project Repo Banner](/image.png)](https://www.gdtactics.com/)
 
