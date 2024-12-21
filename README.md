@@ -23,11 +23,10 @@ Open `MyProject.uproject`
 
 ## Source Examples
 - [Blueprint Function Library](Source/MyProject/BlueprintFunctionLibrary)
-- [Change Material Param](Source/MyProject/ChangeMaterialParam)
+- [Change Material Parameter](Source/MyProject/ChangeMaterialParam)
 - [Delegates](Source/MyProject/Delegates)
 - [Interfaces](Source/MyProject/Interfaces)
 - [Line Trace](Source/MyProject/LineTrace)
-- [Move Component To](Source/MyProject/MoveComponentTo)
 - [Open Level](Source/MyProject/OpenLevelBoxComponent)
 - [Save Game](Source/MyProject/SaveGame)
 - [Save Game Async](Source/MyProject/SaveGameAsync)
