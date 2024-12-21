@@ -21,7 +21,7 @@ git clone https://github.com/Harrison1/gdtactics-unreal.git
 
 Open `MyProject.uproject`
 
-## Source Examples
+## [C++ Source Examples](Source/MyProject)
 - [Blueprint Function Library](Source/MyProject/BlueprintFunctionLibrary)
 - [Change Material Parameter](Source/MyProject/ChangeMaterialParam)
 - [Delegates](Source/MyProject/Delegates)
