@@ -75,10 +75,7 @@ void AMySpawnActor::SpawnParticleEffect()
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
-			FTransform SpawnTransform;
-			SpawnTransform.SetLocation(GetActorLocation());
-			SpawnTransform.SetRotation(FRotator::ZeroRotator.Quaternion());
-			SpawnTransform.SetScale3D(FVector(1.f));
+			FTransform SpawnTransform(GetActorLocation());
 			
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
