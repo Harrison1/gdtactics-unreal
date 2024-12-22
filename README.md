@@ -2,7 +2,7 @@
 
 [![GD Tactics Unreal Engine Project Repo Banner](/image.png)](https://www.gdtactics.com/)
 
-Unreal project for [GD Tactics](https://www.gdtactics.com/).
+Unreal project for [Game Dev Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
 
