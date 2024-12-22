@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "MySpawnActorTrigger.generated.h"
 
+class AMySpawnActor;
 class UBoxComponent;
 
 UCLASS()
@@ -22,7 +23,7 @@ public:
 	UBoxComponent* MyBoxComponent;
 
 	UPROPERTY(EditAnywhere)
-	AActor* MySpawnedActor;
+	AMySpawnActor* MySpawnedActor;
 
 	int32 SpawnCounter = 0;
 	int32 MaxSpawnCount = 10; // Stop spawning actors after 10 have spawned for testing

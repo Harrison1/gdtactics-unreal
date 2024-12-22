@@ -1,5 +1,6 @@
 #include "MySpawnActorTrigger.h"
 #include "Components/BoxComponent.h"
+#include "MySpawnActor.h"
 #include "MySpawnActorInterface.h"
 
 

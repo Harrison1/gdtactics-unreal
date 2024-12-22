@@ -3,7 +3,6 @@
 #include "MySpawnActorPhysics.h"
 #include "MySpawnActorProjectile.h"
 #include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetMathLibrary.h"
 
 
 // Sets default values
@@ -76,14 +75,13 @@ void AMySpawnActor::SpawnParticleEffect()
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
-			const FVector SpawnLocation = GetActorLocation();
-			const FRotator SpawnRotation = FRotator::ZeroRotator;
-			const FVector SpawnScale = FVector(1.f);
+			FTransform SpawnTransform;
+			SpawnTransform.SetLocation(GetActorLocation());
+			SpawnTransform.SetRotation(FRotator::ZeroRotator.Quaternion());
+			SpawnTransform.SetScale3D(FVector(1.f));
 			
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-			FTransform SpawnTransform = UKismetMathLibrary::MakeTransform(SpawnLocation, SpawnRotation, SpawnScale);
 
 			AMySpawnActorParticle* MyDeferredActor = World->SpawnActorDeferred<AMySpawnActorParticle>(MySpawnActorParticleClass, SpawnTransform, nullptr, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
