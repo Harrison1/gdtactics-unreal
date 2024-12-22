@@ -8,7 +8,7 @@ AMyTransformActor::AMyTransformActor()
 	// sets location, rotation defaults to FQuat::Identity and scale defaults to FVector(1)
 	FTransform MyTransform1(FVector::ZeroVector);
 
-	// sets rotation, location defaults to FVector::ZeroVector and scale defaults to FVector(1)
+	// sets rotation, FRotator or FQuat should suffice, location defaults to FVector::ZeroVector and scale defaults to FVector(1)
 	FTransform MyTransform2(FQuat::Identity);
 
 	// set all three parameters. Rotation as a Quaternion comes first.
@@ -20,7 +20,7 @@ AMyTransformActor::AMyTransformActor()
 	MyTransformSet.SetRotation(GetActorRotation().Quaternion()); // Alternatively FQuat(GetActorRotation)
 	MyTransformSet.SetScale3D(FVector(1, 1, 1));
 
-	// create a transform using the UKismetMathLibrary library. The function accepts an FRotator rather than Quat for rotation
+	// create a transform using the UKismetMathLibrary library.
 	FVector MyLocation = GetActorLocation();
 	FRotator MyRotator = GetActorRotation();
 	FVector MyScale = FVector(1);
