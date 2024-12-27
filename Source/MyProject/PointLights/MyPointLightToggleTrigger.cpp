@@ -1,0 +1,35 @@
+#include "MyPointLightToggleTrigger.h"
+#include "MyPointLight.h"
+#include "Components/BoxComponent.h"
+#include "Components/TextRenderComponent.h"
+
+
+// Sets default values
+AMyPointLightToggleTrigger::AMyPointLightToggleTrigger()
+{
+	MyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MyRoot"));
+	MyRoot->bVisualizeComponent = true;
+	RootComponent = MyRoot;
+
+	MyStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyStaticMesh"));
+	MyStaticMesh->SetupAttachment(RootComponent);
+
+	MyTextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>(TEXT("MyTextRenderComponent"));
+	MyTextRenderComponent->SetupAttachment(RootComponent);
+
+	MyBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("MyBoxComponent"));
+	MyBoxComponent->SetupAttachment(RootComponent);
+
+	MyBoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AMyPointLightToggleTrigger::OnBeginOverlap);
+}
+
+void AMyPointLightToggleTrigger::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor != nullptr && OtherActor != this)
+	{
+		for (AMyPointLight* MyPointLight : MyPointLights)
+		{
+			MyPointLight->ToggleTimer();
+		}
+	}
+}
