@@ -6,6 +6,8 @@
 // Sets default values
 AMySpawnActorProjectile::AMySpawnActorProjectile()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	MyCollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("MyCollisionComp"));
 	MyCollisionComp->SetBoxExtent(FVector(100.0f, 100.0f, 100.0f));
 	MyCollisionComp->BodyInstance.SetCollisionProfileName("Projectile");

@@ -7,8 +7,12 @@
 // Sets default values
 AMySpawnActorTrigger::AMySpawnActorTrigger()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	MyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MyRoot"));
+#if WITH_EDITORONLY_DATA
 	MyRoot->bVisualizeComponent = true;
+#endif
 	RootComponent = MyRoot;
 
 	MyBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("MyBoxComponent"));

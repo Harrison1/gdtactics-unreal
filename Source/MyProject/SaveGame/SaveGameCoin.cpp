@@ -6,7 +6,9 @@
 ASaveGameCoin::ASaveGameCoin()
 {
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	RootComponent = Root;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));

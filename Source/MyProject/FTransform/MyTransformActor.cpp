@@ -5,6 +5,8 @@
 // Sets default values
 AMyTransformActor::AMyTransformActor()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	// sets location, rotation defaults to FQuat::Identity and scale defaults to FVector(1)
 	FTransform MyTransform1(FVector::ZeroVector);
 

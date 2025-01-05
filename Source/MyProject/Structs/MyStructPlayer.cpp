@@ -7,7 +7,9 @@
 AMyStructPlayer::AMyStructPlayer()
 {
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	RootComponent = Root;
 
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));

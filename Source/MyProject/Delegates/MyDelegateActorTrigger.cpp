@@ -6,8 +6,12 @@
 // Sets default values
 AMyDelegateActorTrigger::AMyDelegateActorTrigger()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+#if WITH_EDITORONLY_DATA
 	DefaultSceneRoot->bVisualizeComponent = true;
+#endif
 	RootComponent = DefaultSceneRoot;
 	
 	MyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));

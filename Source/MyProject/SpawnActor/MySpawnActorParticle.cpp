@@ -5,8 +5,12 @@
 // Sets default values
 AMySpawnActorParticle::AMySpawnActorParticle()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	MyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MyRoot"));
+#if WITH_EDITORONLY_DATA
 	MyRoot->bVisualizeComponent = true;
+#endif
 	RootComponent = MyRoot;
 
 	MyNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("MyNiagaraComponent"));

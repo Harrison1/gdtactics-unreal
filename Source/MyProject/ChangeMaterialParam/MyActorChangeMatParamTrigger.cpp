@@ -5,8 +5,12 @@
 // Sets default values
 AMyActorChangeMatParamTrigger::AMyActorChangeMatParamTrigger()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Roort"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	RootComponent = Root;
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));

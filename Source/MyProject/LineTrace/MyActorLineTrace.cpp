@@ -6,7 +6,9 @@
 AMyActorLineTrace::AMyActorLineTrace()
 {
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	RootComponent = Root;
 	
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));

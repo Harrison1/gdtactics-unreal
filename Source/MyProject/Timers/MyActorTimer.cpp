@@ -5,7 +5,9 @@
 AMyActorTimer::AMyActorTimer()
 {
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	Root->SetVisibility(true);
 	RootComponent = Root;
 

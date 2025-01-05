@@ -3,6 +3,8 @@
 // Sets default values
 AMyDelegateBindActor::AMyDelegateBindActor()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	TSharedRef<FLogWriter> LogWriter(new FLogWriter());
 	
 	WriteToLogDelegate.BindRaw(&LogWriter.Get(), &FLogWriter::WriteToLog);

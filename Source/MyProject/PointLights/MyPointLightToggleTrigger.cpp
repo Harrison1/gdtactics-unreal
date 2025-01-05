@@ -8,7 +8,9 @@
 AMyPointLightToggleTrigger::AMyPointLightToggleTrigger()
 {
 	MyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("MyRoot"));
+#if WITH_EDITORONLY_DATA
 	MyRoot->bVisualizeComponent = true;
+#endif
 	RootComponent = MyRoot;
 
 	MyStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyStaticMesh"));

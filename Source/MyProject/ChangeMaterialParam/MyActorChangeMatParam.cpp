@@ -3,8 +3,12 @@
 // Sets default values
 AMyActorChangeMatParam::AMyActorChangeMatParam()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+#if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
+#endif
 	RootComponent = Root;
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
