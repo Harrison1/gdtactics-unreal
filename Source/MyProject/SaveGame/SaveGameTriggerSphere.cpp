@@ -7,6 +7,8 @@
 // Sets default values
 ASaveGameTriggerSphere::ASaveGameTriggerSphere()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 #if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;

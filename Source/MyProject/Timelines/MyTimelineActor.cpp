@@ -5,6 +5,8 @@
 // Sets default values
 AMyTimelineActor::AMyTimelineActor()
 {
+	PrimaryActorTick.bCanEverTick = false;
+
 	MyTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("MyTimeline"));
 }
 
