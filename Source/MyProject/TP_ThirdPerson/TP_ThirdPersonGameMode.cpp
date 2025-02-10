@@ -2,6 +2,7 @@
 
 #include "TP_ThirdPersonGameMode.h"
 #include "UObject/ConstructorHelpers.h"
+#include "MyProject/PlayerController/MyPlayerController.h"
 
 ATP_ThirdPersonGameMode::ATP_ThirdPersonGameMode()
 {
@@ -11,4 +12,6 @@ ATP_ThirdPersonGameMode::ATP_ThirdPersonGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	PlayerControllerClass = AMyPlayerController::StaticClass();
 }

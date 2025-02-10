@@ -22,5 +22,11 @@
 			"Name": "GeometryScripting",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"Android",
+		"IOS",
+		"Mac",
+		"Windows"
 	]
 }
