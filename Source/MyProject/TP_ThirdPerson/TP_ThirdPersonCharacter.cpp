@@ -86,6 +86,11 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::Look);
+
+		// Sprinting
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::Sprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ATP_ThirdPersonCharacter::Sprint);
+
 	}
 	else
 	{
@@ -127,4 +132,11 @@ void ATP_ThirdPersonCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ATP_ThirdPersonCharacter::Sprint(const FInputActionValue& Value)
+{
+	bool bIsSprinting = Value.Get<bool>();
+
+	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? 1200.f : 500.f;
 }

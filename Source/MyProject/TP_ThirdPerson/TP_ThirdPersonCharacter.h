@@ -44,6 +44,10 @@ class ATP_ThirdPersonCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Sprint Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SprintAction;
+
 public:
 	ATP_ThirdPersonCharacter();
 	
@@ -55,7 +59,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+	/** Called for sprinting input */
+	void Sprint(const FInputActionValue& Value);
 
 protected:
 	// APawn interface
