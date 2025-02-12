@@ -9,6 +9,11 @@ class MYPROJECT_API UMyCheatManager : public UCheatManager
 {
 	GENERATED_BODY()
 
+	UMyCheatManager();
+
 	UFUNCTION(Exec)
 	void GetPlayerName();
+
+	UFUNCTION()
+	static void MyCommandFunction(const TArray<FString>& Args, UWorld* World);
 };
