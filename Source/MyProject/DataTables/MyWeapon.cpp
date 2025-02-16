@@ -41,9 +41,8 @@ void AMyWeapon::SetGun()
 	if (MyDataTable != nullptr)
 	{
 		TArray<FName> Rows = MyDataTable->GetRowNames();
-		static const FString ContextString(TEXT("Finding Row in Weapons Data Table"));
-
 		MyIndex = FMath::Clamp(MyIndex, 0, Rows.Num() - 1);
+		static const FString ContextString(TEXT("Finding Row in Weapons Data Table"));
 	
 		FMyWeaponsStruct* MyRow = MyDataTable->FindRow<FMyWeaponsStruct>(Rows[MyIndex], ContextString);
 
@@ -61,7 +60,7 @@ void AMyWeapon::SetGun()
 					if (DynamicMaterial != nullptr)
 					{
 						MySkeletalMesh->SetMaterial(0, DynamicMaterial);
-						DynamicMaterial->SetVectorParameterValue(FName("BodyColor"), MyRow->Color);
+						DynamicMaterial->SetVectorParameterValue(FName("Color"), MyRow->Color);
 					}
 				}
 				else

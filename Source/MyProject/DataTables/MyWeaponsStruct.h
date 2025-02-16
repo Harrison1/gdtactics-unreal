@@ -14,7 +14,7 @@ struct FMyWeaponsStruct : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Weapons)
 	FString Name;
 
-	/** Gun Skeletal Mesh*/
+	/** Gun Skeletal Mesh */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Weapons)
 	USkeletalMesh* SkeletalMesh;
 
