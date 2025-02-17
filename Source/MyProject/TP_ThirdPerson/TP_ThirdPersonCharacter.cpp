@@ -49,7 +49,7 @@ ATP_ThirdPersonCharacter::ATP_ThirdPersonCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
-
+	
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -139,4 +139,41 @@ void ATP_ThirdPersonCharacter::Sprint(const FInputActionValue& Value)
 	bool bIsSprinting = Value.Get<bool>();
 
 	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? 1200.f : 500.f;
+}
+
+bool ATP_ThirdPersonCharacter::CanJumpInternal_Implementation() const
+{
+	return Super::CanJumpInternal_Implementation() || bCanCoyoteJump;
+}
+
+void ATP_ThirdPersonCharacter::StartCoyoteTimer()
+{
+	bCanCoyoteJump = true;
+	GetWorldTimerManager().SetTimer(CoyoteTimerHandle, this, &ATP_ThirdPersonCharacter::DisableCoyoteTime, CoyoteTime, false);
+}
+
+void ATP_ThirdPersonCharacter::DisableCoyoteTime()
+{
+	bCanCoyoteJump = false;
+}
+
+void ATP_ThirdPersonCharacter::OnJumped_Implementation()
+{
+	Super::OnJumped_Implementation();
+	bCanCoyoteJump = false;
+}
+
+void ATP_ThirdPersonCharacter::Falling()
+{
+	Super::Falling();
+	StartCoyoteTimer();
+}
+
+void ATP_ThirdPersonCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
+{
+	Super::OnMovementModeChanged(PrevMovementMode, PreviousCustomMode);
+	if (!bPressedJump && !GetCharacterMovement()->IsFalling())
+	{
+		bCanCoyoteJump = false;
+	}
 }

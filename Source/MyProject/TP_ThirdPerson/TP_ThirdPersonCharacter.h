@@ -75,5 +75,25 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UFUNCTION(BlueprintCallable)
+	void StartCoyoteTimer();
+	
+	UFUNCTION(BlueprintCallable)
+	void DisableCoyoteTime();
+	
+	UPROPERTY()
+	bool bCanCoyoteJump = false;
+	
+	UPROPERTY(EditAnywhere)
+	float CoyoteTime = 0.33f;
+
+	UPROPERTY(EditAnywhere)
+	FTimerHandle CoyoteTimerHandle;
+	
+	virtual void Falling() override;
+	virtual bool CanJumpInternal_Implementation() const override;
+	virtual void OnJumped_Implementation() override;
+	virtual void OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode = 0) override;
 };
 
