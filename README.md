@@ -25,6 +25,7 @@ Open `MyProject.uproject`
 - [Blueprint Function Library](Source/MyProject/BlueprintFunctionLibrary)
 - [Change Material Parameter](Source/MyProject/ChangeMaterialParam)
 - [Cheat Manager](Source/MyProject/CheatManager)
+- [Coyote Time](Source/MyProject/TP_ThirdPerson)
 - [Delegates](Source/MyProject/Delegates)
 - [Interfaces](Source/MyProject/Interfaces)
 - [Line Trace](Source/MyProject/LineTrace)
