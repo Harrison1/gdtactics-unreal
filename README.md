@@ -27,6 +27,7 @@ Open `MyProject.uproject`
 - [Cheat Manager](Source/MyProject/CheatManager)
 - [Coyote Time](Source/MyProject/TP_ThirdPerson)
 - [Delegates](Source/MyProject/Delegates)
+- [FTasks](Source/MyProject/Tasks)
 - [Interfaces](Source/MyProject/Interfaces)
 - [Line Trace](Source/MyProject/LineTrace)
 - [Open Level](Source/MyProject/OpenLevelBoxComponent)
