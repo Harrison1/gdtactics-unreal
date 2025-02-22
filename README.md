@@ -32,6 +32,7 @@ Open `MyProject.uproject`
 - [Line Trace](Source/MyProject/LineTrace)
 - [Open Level](Source/MyProject/OpenLevelBoxComponent)
 - [Player Controller](Source/MyProject/PlayerController)
+- [Plugins](plugins)
 - [Save Game](Source/MyProject/SaveGame)
 - [Save Game Async](Source/MyProject/SaveGameAsync)
 - [Spawn Actors](Source/MyProject/SpawnActor)
