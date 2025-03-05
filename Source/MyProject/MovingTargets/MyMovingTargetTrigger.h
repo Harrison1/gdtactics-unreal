@@ -2,37 +2,28 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyPointLightToggleTrigger.generated.h"
+#include "MyMovingTargetTrigger.generated.h"
 
-class AMyPointLight;
 class UBoxComponent;
-class UTextRenderComponent;
-
 
 UCLASS()
-class MYPROJECT_API AMyPointLightToggleTrigger : public AActor
+class MYPROJECT_API AMyMovingTargetTrigger : public AActor
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AMyPointLightToggleTrigger();
+	AMyMovingTargetTrigger();
+	
+	UPROPERTY()
+	USceneComponent* Root;
 
 	UPROPERTY(EditAnywhere)
-	USceneComponent* MyRoot;
+	UBoxComponent* TriggerBox;
 
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* MyStaticMesh;
-
-	UPROPERTY(EditAnywhere)
-	UBoxComponent* MyBoxComponent;
-
-	UPROPERTY(EditAnywhere)
-	UTextRenderComponent* MyTextRenderComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<AMyPointLight*> MyPointLights;
-
+	UFUNCTION()
+	void TriggerInterfaceAction();
+	
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 

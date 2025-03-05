@@ -6,7 +6,7 @@ Unreal project for [Game Dev Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
 
-Current Engine Version: 5.5.1
+Current Engine Version: 5.5.3
 
 Download the latest version of [Unreal](https://www.unrealengine.com/en-US)
 
@@ -30,6 +30,7 @@ Open `MyProject.uproject`
 - [FTasks](Source/MyProject/Tasks)
 - [Interfaces](Source/MyProject/Interfaces)
 - [Line Trace](Source/MyProject/LineTrace)
+- [Moving Target](Source/MyProject/MovingTargets)
 - [Open Level](Source/MyProject/OpenLevelBoxComponent)
 - [Player Controller](Source/MyProject/PlayerController)
 - [Plugins](plugins)
