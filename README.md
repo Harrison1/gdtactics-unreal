@@ -26,6 +26,7 @@ Open `MyProject.uproject`
 - [Change Material Parameter](Source/MyProject/ChangeMaterialParam)
 - [Cheat Manager](Source/MyProject/CheatManager)
 - [Coyote Time](Source/MyProject/TP_ThirdPerson)
+- [Enums and DamageTypes](Source/MyProject/Enums)
 - [Delegates](Source/MyProject/Delegates)
 - [FTasks](Source/MyProject/Tasks)
 - [Interfaces](Source/MyProject/Interfaces)
