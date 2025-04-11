@@ -50,3 +50,7 @@ Build
 DerivedDataCache
 Intermediate
 Saved
+
+# VS
+.vs
+.vsconfig
