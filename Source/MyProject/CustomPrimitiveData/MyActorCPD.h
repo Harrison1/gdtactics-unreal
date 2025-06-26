@@ -2,10 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyProject/Prototype/PrototypeInterface.h"
 #include "MyActorCPD.generated.h"
 
 UCLASS()
-class MYPROJECT_API AMyActorCPD : public AActor
+class MYPROJECT_API AMyActorCPD : public AActor, public IPrototypeInterface
 {
 	GENERATED_BODY()
 
@@ -33,4 +34,7 @@ public:
 
 	UFUNCTION()
 	void TimerFunction() const;
+
+	void Interact_Implementation() override;
+	void StopInteract_Implementation() override;
 };

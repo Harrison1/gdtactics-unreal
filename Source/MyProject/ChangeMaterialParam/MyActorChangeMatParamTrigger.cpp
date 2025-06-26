@@ -7,7 +7,7 @@ AMyActorChangeMatParamTrigger::AMyActorChangeMatParamTrigger()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Roort"));
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 #if WITH_EDITORONLY_DATA
 	Root->bVisualizeComponent = true;
 #endif

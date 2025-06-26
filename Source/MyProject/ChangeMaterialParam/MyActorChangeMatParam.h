@@ -2,10 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyProject/Prototype/PrototypeInterface.h"
 #include "MyActorChangeMatParam.generated.h"
 
 UCLASS()
-class MYPROJECT_API AMyActorChangeMatParam : public AActor
+class MYPROJECT_API AMyActorChangeMatParam : public AActor, public IPrototypeInterface
 {
 	GENERATED_BODY()
 
@@ -35,4 +36,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateMaterial(FVector Color = FVector(1.f, 1.f, 1.f), float Emissive = 0.f, bool Randomize = true);
+
+	UPROPERTY()
+	FTimerHandle TimerHandle;
+
+	UFUNCTION(BlueprintCallable)
+	void StartTimer();
+
+	void Interact_Implementation() override;
+	void StopInteract_Implementation() override;
 };

@@ -54,3 +54,13 @@ void AMyActorCPD::TimerFunction() const
 	StaticMesh->SetCustomPrimitiveDataFloat(4, Emissive);
 	StaticMesh->SetCustomPrimitiveDataFloat(5, Scale);
 }
+
+void AMyActorCPD::Interact_Implementation()
+{
+	StartTimer();
+}
+
+void AMyActorCPD::StopInteract_Implementation()
+{
+	StopTimer();
+}

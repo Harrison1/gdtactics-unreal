@@ -7,7 +7,7 @@ AMyActorChangeMatParam::AMyActorChangeMatParam()
 
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 #if WITH_EDITORONLY_DATA
-	Root->bVisualizeComponent = true;
+	// Root->bVisualizeComponent = true;
 #endif
 	RootComponent = Root;
 
@@ -51,4 +51,19 @@ void AMyActorChangeMatParam::UpdateMaterial(FVector Color, float Emissive, bool 
 		DynamicMaterial->SetVectorParameterValue(VectorParamName, Color);
 		DynamicMaterial->SetScalarParameterValue(ScalarParamName, Emissive);
 	}
+}
+
+void AMyActorChangeMatParam::StartTimer()
+{
+	UpdateMaterial();
+}
+
+void AMyActorChangeMatParam::Interact_Implementation()
+{
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AMyActorChangeMatParam::StartTimer, 0.5f, true, 0.f);
+}
+
+void AMyActorChangeMatParam::StopInteract_Implementation()
+{
+	GetWorldTimerManager().ClearTimer(TimerHandle);
 }
