@@ -7,6 +7,7 @@
 #include "Logging/LogMacros.h"
 #include "TP_FirstPersonCharacter.generated.h"
 
+class ATP_ThirdPersonCharacter;
 class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -36,12 +37,20 @@ class ATP_FirstPersonCharacter : public ACharacter
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
+
+	/** Toggle Character Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ToggleCharacterAction;
 	
 public:
 	ATP_FirstPersonCharacter();
 
 protected:
 	virtual void BeginPlay();
+
+	// Perform when possessed or unpossessed during the toggle character feature
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void UnPossessed() override;
 
 public:
 		
@@ -56,7 +65,9 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-protected:
+	/** Called for the toggle character input */
+	void ToggleCharacter(const FInputActionValue& Value);
+	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
@@ -67,5 +78,15 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputMappingContext* InputMappingContext;
+
+	// Subclass used for the toggle character feature
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character")
+	TSubclassOf<class ATP_ThirdPersonCharacter> MyThirdPersonCharacterSubClass;
+
+	// Actor used for the toggle character feature
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character")
+	ATP_ThirdPersonCharacter* MyThirdPersonCharacter;
 };
 

@@ -9,6 +9,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "MyProject/TP_ThirdPerson/TP_ThirdPersonCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateFirstPersonCharacter);
 
@@ -43,10 +45,45 @@ void ATP_FirstPersonCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ATP_FirstPersonCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			if (Subsystem->HasMappingContext(InputMappingContext))
+			{
+				Subsystem->AddMappingContext(InputMappingContext, 0);	
+			}
+		}
+	}
+	
+	GetCapsuleComponent()->SetVisibility(true, true);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void ATP_FirstPersonCharacter::UnPossessed()
+{
+	Super::UnPossessed();
+	GetCapsuleComponent()->SetVisibility(false, true);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
 //////////////////////////////////////////////////////////////////////////// Input
 
 void ATP_FirstPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{	
+{
+	// Add Input Mapping Context
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(InputMappingContext, 0);
+		}
+	}
+	
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
@@ -59,6 +96,9 @@ void ATP_FirstPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATP_FirstPersonCharacter::Look);
+
+		// Toggle Character
+		EnhancedInputComponent->BindAction(ToggleCharacterAction, ETriggerEvent::Triggered, this, &ATP_FirstPersonCharacter::ToggleCharacter);
 	}
 	else
 	{
@@ -90,5 +130,53 @@ void ATP_FirstPersonCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
+	}
+}
+
+void ATP_FirstPersonCharacter::ToggleCharacter(const FInputActionValue& Value)
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	
+	if (PlayerController != nullptr)
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->RemoveMappingContext(InputMappingContext);
+		}
+	}
+
+	if (MyThirdPersonCharacter != nullptr && PlayerController != nullptr)
+	{
+		MyThirdPersonCharacter->SetActorTransform(GetActorTransform());
+		PlayerController->Possess(MyThirdPersonCharacter);
+	}
+	else if (MyThirdPersonCharacterSubClass != nullptr && PlayerController != nullptr)
+	{
+		if (UWorld* const World = GetWorld())
+		{
+			AActor* MyNewCharacter = UGameplayStatics::GetActorOfClass(World, MyThirdPersonCharacterSubClass);
+			// ATP_FirstPersonCharacter* MyNewCharacter = Cast<ATP_FirstPersonCharacter>(UGameplayStatics::GetActorOfClass(World, MyFirstPersonCharacterSubClass));
+			
+			if (MyNewCharacter == nullptr)
+			{
+				FActorSpawnParameters ActorSpawnParams;
+				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+				MyThirdPersonCharacter = World->SpawnActor<ATP_ThirdPersonCharacter>(MyThirdPersonCharacterSubClass, GetActorTransform(), ActorSpawnParams);
+				if (MyThirdPersonCharacter != nullptr)
+				{
+					PlayerController->Possess(MyThirdPersonCharacter);	
+				}
+			}
+			else
+			{
+				ATP_ThirdPersonCharacter* MyPossessCharacter = Cast<ATP_ThirdPersonCharacter>(MyNewCharacter);
+				if (MyPossessCharacter != nullptr)
+				{
+					MyPossessCharacter->SetActorTransform(GetActorTransform());
+					PlayerController->Possess(MyPossessCharacter);	
+				}
+			}
+		}
 	}
 }

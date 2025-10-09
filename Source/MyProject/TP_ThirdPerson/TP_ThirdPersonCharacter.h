@@ -7,6 +7,7 @@
 #include "Logging/LogMacros.h"
 #include "TP_ThirdPersonCharacter.generated.h"
 
+class ATP_FirstPersonCharacter;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
@@ -30,7 +31,7 @@ class ATP_ThirdPersonCharacter : public ACharacter
 	
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* DefaultMappingContext;
+	UInputMappingContext* InputMappingContext;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -48,6 +49,10 @@ class ATP_ThirdPersonCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
 
+	/** Toggle Character Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ToggleCharacterAction;
+
 public:
 	ATP_ThirdPersonCharacter();
 	
@@ -63,12 +68,18 @@ protected:
 	/** Called for sprinting input */
 	void Sprint(const FInputActionValue& Value);
 
-protected:
+	/** Called for the toggle character input */
+	void ToggleCharacter(const FInputActionValue& Value);
+	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
+	// Perform when possessed or unpossessed during the toggle character feature
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void UnPossessed() override;
 
 public:
 	/** Returns CameraBoom subobject **/
@@ -90,6 +101,14 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FTimerHandle CoyoteTimerHandle;
+
+	// Subclass used for the toggle character feature
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character")
+	TSubclassOf<class ATP_FirstPersonCharacter> MyFirstPersonCharacterSubClass;
+
+	// Actor used for the toggle character feature
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character")
+	ATP_FirstPersonCharacter* MyFirstPersonCharacter;
 	
 	virtual void Falling() override;
 	virtual bool CanJumpInternal_Implementation() const override;
