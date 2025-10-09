@@ -6,7 +6,7 @@ Unreal project for [Game Dev Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
 
-Current Engine Version: 5.5.4
+Current Engine Version: 5.6.1
 
 Download the latest version of [Unreal](https://www.unrealengine.com/en-US)
 
