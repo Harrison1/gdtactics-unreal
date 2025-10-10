@@ -184,6 +184,12 @@ void ATP_ThirdPersonCharacter::ToggleCharacter(const FInputActionValue& Value)
 		}
 	}
 
+	// play the toggle sound if specified
+	if (ToggleSound != nullptr)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ToggleSound, GetActorLocation());
+	}
+
 	if (MyFirstPersonCharacter != nullptr && PlayerController != nullptr)
 	{
 		MyFirstPersonCharacter->SetActorTransform(GetActorTransform());

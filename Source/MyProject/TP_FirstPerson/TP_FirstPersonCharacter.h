@@ -82,11 +82,15 @@ public:
 	UInputMappingContext* InputMappingContext;
 
 	// Subclass used for the toggle character feature
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character Toggle")
 	TSubclassOf<class ATP_ThirdPersonCharacter> MyThirdPersonCharacterSubClass;
 
 	// Actor used for the toggle character feature
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character Toggle")
 	ATP_ThirdPersonCharacter* MyThirdPersonCharacter;
+
+	/** Sound to play each time we toggle characters */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Third Person Character Toggle")
+	USoundBase* ToggleSound;
 };
 

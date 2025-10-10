@@ -19,3 +19,4 @@
 | Soundly  | FreeSound CCO | SFX      | Land                                                | kfatehi           | CCO https://getsoundly.com/faq/how-can-i-use-the-freesound-library/ |
 | Soundly  | FreeSound CCO | SFX      | Male Jump 01-03                                     | Artmasterrich     | CCO https://getsoundly.com/faq/how-can-i-use-the-freesound-library/ |
 | Soundly  | FreeSound CCO | Ambiance | Machine Noise BG                                    | alienistcog       | CCO https://getsoundly.com/faq/how-can-i-use-the-freesound-library/ |
+| Soundly  | FreeSound CCO | SFX      | Deep Whoosh #5                                      | Kinoton           | CCO https://getsoundly.com/faq/how-can-i-use-the-freesound-library/ |

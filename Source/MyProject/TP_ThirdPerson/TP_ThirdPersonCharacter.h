@@ -103,12 +103,16 @@ public:
 	FTimerHandle CoyoteTimerHandle;
 
 	// Subclass used for the toggle character feature
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character Toggle")
 	TSubclassOf<class ATP_FirstPersonCharacter> MyFirstPersonCharacterSubClass;
 
 	// Actor used for the toggle character feature
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character Toggle")
 	ATP_FirstPersonCharacter* MyFirstPersonCharacter;
+
+	/** Sound to play each time we toggle characters */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "First Person Character Toggle")
+	USoundBase* ToggleSound;
 	
 	virtual void Falling() override;
 	virtual bool CanJumpInternal_Implementation() const override;
