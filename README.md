@@ -34,6 +34,7 @@ Open `MyProject.uproject`
 - [Line Trace](Source/MyProject/LineTrace)
 - [Moving Target](Source/MyProject/MovingTargets)
 - [Open Level](Source/MyProject/OpenLevelBoxComponent)
+- [Play Sound at Location](/Source/MyProject/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp#L190)
 - [Player Controller](Source/MyProject/PlayerController)
 - [Plugins](plugins)
 - Possess and UnPossess Characters [Third Person](Source/MyProject/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp) and [First Person](Source/MyProject/TP_FirstPerson/TP_FirstPersonCharacter.cpp)
