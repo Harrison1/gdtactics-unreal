@@ -122,6 +122,9 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// Toggle Character
 		EnhancedInputComponent->BindAction(ToggleCharacterAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::ToggleCharacter);
+
+		// Toggle Time Dilation
+		EnhancedInputComponent->BindAction(ToggleTimeDilationAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::ToggleTimeDilation);
 	}
 	else
 	{
@@ -228,6 +231,15 @@ void ATP_ThirdPersonCharacter::ToggleCharacter(const FInputActionValue& Value)
 				}
 			}
 		}
+	}
+}
+
+void ATP_ThirdPersonCharacter::ToggleTimeDilation(const FInputActionValue& Value)
+{
+	if (UWorld* const World = GetWorld())
+	{
+		UGameplayStatics::SetGlobalTimeDilation(World, bIsTimeDilated ? 1.f : 0.5f);
+		bIsTimeDilated = !bIsTimeDilated;
 	}
 }
 

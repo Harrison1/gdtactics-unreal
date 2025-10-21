@@ -2,12 +2,12 @@
 
 [![GD Tactics Unreal Engine Project Repo Banner](/image.png)](https://www.gdtactics.com/)
 
+[![Unreal Engine](https://img.shields.io/badge/Unreal_Engine-5.6.1-%23313131?logo=unrealengine&logoColor=white)](https://www.unrealengine.com/en-US)
+[![GD Tactics](https://img.shields.io/badge/GD_Tactics-0084d1)](https://gdtactics.com/)
+
 Unreal project for [Game Dev Tactics](https://www.gdtactics.com/).
 
 ## Getting Started
-
-Current Engine Version: 5.6.1
-
 Download the latest version of [Unreal](https://www.unrealengine.com/en-US)
 
 Clone or download the repo
@@ -42,5 +42,6 @@ Open `MyProject.uproject`
 - [Save Game Async](Source/MyProject/SaveGameAsync)
 - [Spawn Actors](Source/MyProject/SpawnActor)
 - [Structs](Source/MyProject/Structs)
+- [TimeDilation](Source/MyProject/TP_ThirdPerson/TP_ThirdPersonCharacter.cpp)
 - [Timelines](/Source/MyProject/Timelines)
 - [Timers](/Source/MyProject/Timers)

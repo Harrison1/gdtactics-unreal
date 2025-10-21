@@ -53,6 +53,10 @@ class ATP_ThirdPersonCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ToggleCharacterAction;
 
+	/** Toggle Time Dilation Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* ToggleTimeDilationAction;
+
 public:
 	ATP_ThirdPersonCharacter();
 	
@@ -70,6 +74,9 @@ protected:
 
 	/** Called for the toggle character input */
 	void ToggleCharacter(const FInputActionValue& Value);
+
+	/** Called for the toggle time dilation input */
+	void ToggleTimeDilation(const FInputActionValue& Value);
 	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -95,6 +102,9 @@ public:
 	
 	UPROPERTY()
 	bool bCanCoyoteJump = false;
+
+	UPROPERTY()
+	bool bIsTimeDilated = false;
 	
 	UPROPERTY(EditAnywhere)
 	float CoyoteTime = 0.33f;
